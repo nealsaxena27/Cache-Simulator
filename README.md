@@ -1,7 +1,7 @@
 # L1 Cache Simulator
 
 A basic L1 cache simulator written in modern **C++20**, using **CMake** for build system.  
-The simulator is trace-driven and supports configurable cache geometry and multiple replacement policies (currently only LRU is supported).
+The simulator is trace-driven and supports configurable cache geometry and multiple replacement policies (currently only LRU, FIFO are supported).
 
 ---
 
@@ -9,7 +9,7 @@ The simulator is trace-driven and supports configurable cache geometry and multi
 
 - Language: **C++20**
 - Build System: **CMake**
-- Replacement Policy: **LRU**
+- Replacement Policy: **LRU**, **FIFO**
 - Configurable: cache size, block size, associativity, replacement policy, write policy, write-miss behavior
 - Input: trace file (`R/W <address>`). Addresses accepted in both decimal and hexadecimal.
 - Output: formatted statistics table (hits, misses, miss rate, etc.)
