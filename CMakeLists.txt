@@ -37,6 +37,7 @@ set(SRC_FILES
     src/trace_reader.cpp
     src/stats.cpp
     src/policies/lru.cpp
+    src/policies/fifo.cpp
 )
 
 # Public headers directory

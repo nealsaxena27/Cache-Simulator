@@ -7,6 +7,7 @@
 #include <memory>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace cache{
     class Cache{
@@ -41,5 +42,14 @@ namespace cache{
         std::size_t index_bits_; // number of bits for set index
         std::size_t offset_bits_; // number of bits for block offset
         uint64_t index_mask_; // mask for obtaining index, after shift
+
+        // helper functions
+
+        /*
+            factory function to create policy according to provided name.
+            returns ownership of the created ReplacementPolicy.
+        */
+        std::unique_ptr<ReplacementPolicy> make_policy(std::string_view name, 
+            std::size_t num_sets, std::size_t ways_);
     };
 } // namespace cache

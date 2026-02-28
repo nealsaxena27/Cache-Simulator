@@ -3,12 +3,14 @@
 #include "cache_set.hpp"
 #include "replacement_policy.hpp"
 #include "policies/lru.hpp"
+#include "policies/fifo.hpp"
 #include "stats.hpp"
 #include <vector>
 #include <memory>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace cache{
     Cache::Cache(const Config &cfg)
@@ -18,7 +20,7 @@ namespace cache{
         index_bits_ = std::countr_zero(num_sets_);
         index_mask_ = (1ULL << index_bits_) - 1ULL;
         sets_.assign(num_sets_, CacheSet{cfg_.ways});
-        policy_ = std::make_unique<LRUPolicy>(num_sets_, cfg_.ways);
+        policy_ = make_policy(cfg_.replacement, num_sets_, cfg_.ways);
     }
 
     bool Cache::access(uint64_t addr, bool is_write){
@@ -69,5 +71,17 @@ namespace cache{
 
     StatsCollector Cache::stats() const{
         return stats_;
+    }
+
+    std::unique_ptr<ReplacementPolicy> Cache::make_policy(std::string_view name, 
+        std::size_t num_sets, std::size_t ways){
+        if(name == "lru"){
+            return std::make_unique<LRUPolicy>(num_sets, ways);
+        }
+        if(name == "fifo"){
+            return std::make_unique<FIFOPolicy>(num_sets, ways);
+        }
+        // default: lru
+        return std::make_unique<LRUPolicy>(num_sets, ways);
     }
 }
