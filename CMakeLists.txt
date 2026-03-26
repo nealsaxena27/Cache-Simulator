@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 4.0)
 
 project("L1 Cache Simulator"
-    VERSION 0.1
+    VERSION 0.2.0
     DESCRIPTION "L1 Cache Simulator"
     LANGUAGES CXX)
 
-# --- Language / compiler ---
+# Language / compiler
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -25,10 +25,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Options (simple)
+# Options
 option(ENABLE_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
-# --- Source files (explicit list) ---
+# Source files
 set(SRC_FILES
     src/main.cpp
     src/cache.cpp
@@ -43,7 +43,7 @@ set(SRC_FILES
 # Public headers directory
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
-# --- Core library ---
+# Core library
 add_library(cachelib STATIC ${SRC_FILES})
 target_include_directories(cachelib
     PUBLIC
@@ -65,11 +65,11 @@ if (ENABLE_WARNINGS_AS_ERRORS)
   endif()
 endif()
 
-# --- Executable ---
+# Executable
 add_executable(cache_simulator src/main.cpp)
 target_link_libraries(cache_simulator PRIVATE cachelib)
 
-# --- Install rules (optional) ---
+# Install rules
 install(TARGETS cache_simulator cachelib
         RUNTIME DESTINATION bin
         ARCHIVE DESTINATION lib

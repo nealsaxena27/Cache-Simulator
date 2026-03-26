@@ -26,14 +26,19 @@ namespace cache{
         std::optional<CacheLine> replace_at(std::size_t way, uint64_t tag, bool mark_dirty);
 
         /*
-            sets dirty flag, if is_write is true. 
+            marks the cacheline at way dirty, if is_write is true. 
         */
         void touch(std::size_t way, bool is_write);
 
         /*
+            invalidates the cache line at way.
+        */
+        void invalidate(std::size_t way);
+
+        /*
             returns const reference to internal lines vector.
         */
-        const std::vector<CacheLine>& lines() const;
+        std::vector<CacheLine>& lines();
     private:
         // vector of lines to store the set of CacheLines in the set
         std::vector<CacheLine> lines_;

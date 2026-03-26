@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <string>
+#include <string_view>
 
 namespace cache{
     struct StatsCollector{
@@ -12,6 +14,6 @@ namespace cache{
         /*
             prints a short summary of the collected statistics
         */
-        void print() const;
+        void print(std::string_view title) const;
     };
 } // namespace cache

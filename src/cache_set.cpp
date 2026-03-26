@@ -28,7 +28,11 @@ namespace cache{
         if(is_write) lines_[way].dirty = true;
     }
 
-    const std::vector<CacheLine>& CacheSet::lines() const{
+    void CacheSet::invalidate(std::size_t way){
+        lines_[way].valid = false;
+    }
+
+    std::vector<CacheLine>& CacheSet::lines(){
         return lines_;
     }
 }

@@ -11,9 +11,11 @@ namespace cache{
         Simulator() = default;
 
         /*
-            initializes the Simulator with given Configuration and trace path
+            initializes the Simulator with given Configuration, and 
+            L2 configuration (if l2_flag is true), and trace path
         */
-        void init(const Config &cfg, const std::filesystem::path &trace_path);
+        void init(const Config &cfg, const Config &l2_cfg,
+            bool l2_flag, const std::filesystem::path &trace_path);
 
         /*
             runs the simulation, reading trace records till EOF, feeding them to Cache
@@ -28,6 +30,7 @@ namespace cache{
     private:
         Config cfg_; // configuration of Cache
         TraceReader trace_; // TraceReader for reading AccessRecords from trace input file
-        std::unique_ptr<Cache> cache_; // ownership of Cache
+        std::unique_ptr<Cache> l1_cache_; // ownership of L1 Cache
+        std::unique_ptr<Cache> l2_cache_; // ownership of L2 Cache
     };
 } // namespace cache

@@ -3,9 +3,10 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <string_view>
 
 namespace cache{
-    void StatsCollector::print() const{
+    void StatsCollector::print(std::string_view title) const{
         const uint64_t total_accesses = reads + writes;
         
         // table layout
@@ -14,6 +15,10 @@ namespace cache{
         constexpr int TABLE_WIDTH = COL_LEFT + COL_RIGHT;
 
         // header
+        std::cout << std::endl;
+        std::cout << std::string(TABLE_WIDTH, '=') << '\n';
+        std::cout << std::left << std::setw(COL_LEFT) << "STATISTICS"
+        << std::right << std::setw(COL_RIGHT) << title << '\n';
         std::cout << std::string(TABLE_WIDTH, '=') << '\n';
         std::cout << std::left << std::setw(COL_LEFT) << "METRIC"
         << std::right << std::setw(COL_RIGHT) << "VALUE" << '\n';
@@ -52,5 +57,6 @@ namespace cache{
 
         // footer
         std::cout << std::string(TABLE_WIDTH, '=') << std::endl;
+        std::cout << std::endl;
     }
 }
